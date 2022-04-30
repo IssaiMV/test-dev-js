@@ -18,15 +18,18 @@ const renderComponents = (...components) => {
 
 const useState = (initialState) => {
   // [MODIFICATION ALLOWED]
+
+  const currentStackPointer = stackPointer;
+
   const setter = (toSetValue) => {
     if (typeof toSetValue === 'function') {
-      stateStack[stackPointer] = toSetValue(stateStack[stackPointer] || initialState)
+      stateStack[currentStackPointer] = toSetValue(stateStack[currentStackPointer] ?? initialState)
     } else {
-      stateStack[stackPointer] = toSetValue
+      stateStack[currentStackPointer] = toSetValue
     }
   }
 
-  return [stateStack[stackPointer] || initialState, setter]
+  return [stateStack[currentStackPointer] ?? initialState, setter]
   // [MODIFICATION ALLOWED]
 }
 
